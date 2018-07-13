@@ -1,0 +1,82 @@
+$def with (form, text)
+ 
+<!doctype html>
+ 
+<html>
+ 
+    <head>
+        <title>Hello</title>
+        <link rel="stylesheet" type="text/css" href="/static/dashboard.css" />
+        <link rel="stylesheet" href="/static/presets/p1.css">
+        
+        <script type="text/javascript" src="/static/jquery.js"></script>         
+        <script type="text/javascript" src="/static/knob.js"></script> 
+        <script type="text/javascript" src="/static/presets/p1.js"></script>
+    </head>
+     
+    <body>
+        <br>
+<!--
+        <form class="form" method="post"> 
+        $:form.render()
+        <input class="button" type="submit" value="send"/>              
+        
+        </form>     
+-->           
+        <span id="foo">$text</span> 
+        <br><br>        
+        
+        <input id="preset1" class="preset1" type="range" min="0" max="10" data-width="100" data-height="100" data-angleOffset="220" data-angleRange="280">
+        <br><br>  
+        
+        <button id="green" type="button">Green</button>
+        <button id="red" type="button">Red</button>
+        <button id="white" type="button">White</button>
+        
+        <script type="text/javascript">
+            /**
+             * Just a lazy way to convert all inputs into knobs.
+             * Normally you would write `new Knob(document.getElementById('someIdHere'), new Ui.P1());` to create a knob.
+             */
+
+            var el = document.getElementById('preset1');
+            var speed = new Knob(el, new Ui.P1());
+            el.addEventListener('change', function  () {
+                console.log(el.value);
+                jQuery.ajax({
+                    type: "POST",
+                    data: {textfield : el.value},
+                    success: function(data) {
+                        jQuery('#foo').html(data).hide().fadeIn(100);
+                    },
+                    });
+                });
+                
+            var greenBtn = document.getElementById('green');
+            greenBtn.addEventListener('mousedown', function  () {                
+                console.log("Green button down");
+                jQuery.ajax({
+                    type: "POST",
+                    data: {green : 'down'},
+                    success: function(data) {
+                        jQuery('#green').value("xxxxx");
+                    },
+                    });
+                });
+                            
+            greenBtn.addEventListener('mouseup', function  () {                
+                console.log("Green button up");
+                jQuery.ajax({
+                    type: "POST",
+                    data: {green : 'up'},
+                    success: function(data) {
+                        jQuery('#green').value("Green");
+                    },
+                    });
+                });
+            
+                  
+        </script>                      
+    </body>
+     
+</html>
