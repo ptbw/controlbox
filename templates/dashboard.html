@@ -15,6 +15,7 @@ $def with (form, text)
     </head>
      
     <body>
+        <div style="margin:10px; padding:20px;" class="metal">
         <br>
           
         <span>Speed: </span><span id="foo">$text</span> 
@@ -30,7 +31,8 @@ $def with (form, text)
                 <td><button id="white" style="height: 26px;width:100px" type="button">White</button></td>
                 </tr>
         </table>
-            
+        <br><br>  
+        </div>
         <script type="text/javascript">
             
             var el = document.getElementById('preset1');
@@ -41,7 +43,7 @@ $def with (form, text)
                     type: "POST",
                     data: {textfield : el.value, green : 'none', red : 'none', white : 'none'},
                     success: function(data) {
-                        jQuery('#foo').html(data).hide().fadeIn(100);
+                        jQuery('#foo').html(data);
                     },
                     });
                 });

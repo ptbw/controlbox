@@ -34,28 +34,24 @@ body {
     outline: none;
 }	
 
-.Demo rect { fill: #57C7B6; }
 
-.Demo g polygon { opacity: 1; }
+.metal {
+    font-weight: 400;
+    text-shadow: hsla(0,0%,40%,.5) 0 -1px 0, hsla(0,0%,100%,.6) 0 2px 1px;
+    padding: 0 0;
+    line-height: $button-height;
+    Xheight: $button-height;
+    width: $button-height;
+    text-align: center;
+    border: none;
+    background: #aaa;
+    box-shadow: inset hsla(0,0%,15%, 1) 0 0px 0px 4px,
+      /* border */ inset hsla(0,0%,15%, .8) 0 -1px 5px 4px,
+      /* soft SD */ inset hsla(0,0%,0%, .25) 0 -1px 0px 7px,
+      /* bottom SD */ inset hsla(0,0%,100%,.7) 0 2px 1px 7px,
+      /* top HL */ hsla(0,0%, 0%,.15) 0 -5px 6px 4px,
+      /* outer SD */ hsla(0,0%,100%,.5) 0 5px 6px 4px;
+  }
+  
 
-.Demo circle {
-  fill: #256058;
-  stroke: #57C7B6;
-  stroke-width: 2;
-  filter: url(#dropshadow);
-}
 
-.Demo text {
-  font-size: 10px;
-  fill: #57C7B6;
-  font-family: sans-serif;
-  font-weight: 300;
-  -webkit-transition: all .1s ease-in-out;
-}
-
-.Demo text.active {
-  font-size: 15px;
-  -webkit-transition: all .3s ease-in-out;
-}	
-
-        

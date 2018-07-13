@@ -1,21 +1,29 @@
 .p1 rect {
-  fill: #57C7B6;
+  fill: #8e0909;
 }
 
 .p1 g polygon {
   opacity: 1;
 }
 
+.p1 .pointer {
+	fill: #FF0000; 
+  }
+
+.p1 .scale {
+	fill: #8e0909; 
+  }
+  
 .p1 circle {
   fill: #256058;
   stroke: #57C7B6;
-  stroke-width: 2;
+  stroke-width: 4;
   filter: url(#dropshadow);
 }
 
 .p1 text {
-  font-size: 10px;
-  fill: #57C7B6;
+  font-size: 15px;
+  fill: #8e0909;
   font-family: sans-serif;
   font-weight: 300;
   -webkit-transition: all .1s ease-in-out;
@@ -23,5 +31,6 @@
 
 .p1 text.active {
   font-size: 15px;
+  fill: #FF0000;
   -webkit-transition: all .3s ease-in-out;
 }
