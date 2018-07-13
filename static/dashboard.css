@@ -28,7 +28,11 @@ body {
 		background-color:#FBFFF; 
 		border:1px solid; 
 		border-color: #696 #363 #363 #696; 
-	}	
+	}
+	
+*:focus {
+    outline: none;
+}	
 
 .Demo rect { fill: #57C7B6; }
 

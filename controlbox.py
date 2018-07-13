@@ -20,8 +20,16 @@ class dashboard:
     def POST(self):
 		form = my_form()
 		form.validates()
+		
 		greenBtn = form.value['green']
 		print( "Green Button: " + greenBtn )
+		
+		redBtn = form.value['red']
+		print( "Red Button: " + redBtn )
+		
+		whiteBtn = form.value['white']
+		print( "White Button: " + whiteBtn )
+		
 		s = form.value['textfield']
 		i = 0
 		if( s.isdigit() ) :

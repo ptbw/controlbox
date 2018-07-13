@@ -16,36 +16,30 @@ $def with (form, text)
      
     <body>
         <br>
-<!--
-        <form class="form" method="post"> 
-        $:form.render()
-        <input class="button" type="submit" value="send"/>              
-        
-        </form>     
--->           
-        <span id="foo">$text</span> 
+          
+        <span>Speed: </span><span id="foo">$text</span> 
         <br><br>        
         
         <input id="preset1" class="preset1" type="range" min="0" max="10" data-width="100" data-height="100" data-angleOffset="220" data-angleRange="280">
         <br><br>  
         
-        <button id="green" type="button">Green</button>
-        <button id="red" type="button">Red</button>
-        <button id="white" type="button">White</button>
-        
+        <table>
+            <tr>
+                <td><button id="green" style="height: 26px;width:100px" type="button">Green</button></td>
+                <td><button id="red" style="height: 26px;width:100px" type="button">Red</button></td>
+                <td><button id="white" style="height: 26px;width:100px" type="button">White</button></td>
+                </tr>
+        </table>
+            
         <script type="text/javascript">
-            /**
-             * Just a lazy way to convert all inputs into knobs.
-             * Normally you would write `new Knob(document.getElementById('someIdHere'), new Ui.P1());` to create a knob.
-             */
-
+            
             var el = document.getElementById('preset1');
             var speed = new Knob(el, new Ui.P1());
             el.addEventListener('change', function  () {
                 console.log(el.value);
                 jQuery.ajax({
                     type: "POST",
-                    data: {textfield : el.value},
+                    data: {textfield : el.value, green : 'none', red : 'none', white : 'none'},
                     success: function(data) {
                         jQuery('#foo').html(data).hide().fadeIn(100);
                     },
@@ -57,9 +51,9 @@ $def with (form, text)
                 console.log("Green button down");
                 jQuery.ajax({
                     type: "POST",
-                    data: {green : 'down'},
+                    data: {textfield : el.value, green : 'down', red : 'none', white : 'none'},
                     success: function(data) {
-                        jQuery('#green').value("xxxxx");
+                        jQuery('#green').html('');
                     },
                     });
                 });
@@ -68,13 +62,58 @@ $def with (form, text)
                 console.log("Green button up");
                 jQuery.ajax({
                     type: "POST",
-                    data: {green : 'up'},
+                    data: {textfield : el.value, green : 'up', red : 'none', white : 'none'},
                     success: function(data) {
-                        jQuery('#green').value("Green");
+                        jQuery('#green').html("Green");
+                    },
+                    });
+                });
+                
+            var redBtn = document.getElementById('red');
+            redBtn.addEventListener('mousedown', function  () {                
+                console.log("Red button down");
+                jQuery.ajax({
+                    type: "POST",
+                    data: {textfield : el.value, green : 'none', red : 'down', white : 'none'},
+                    success: function(data) {
+                        jQuery('#red').html('');
+                    },
+                    });
+                });
+                            
+            redBtn.addEventListener('mouseup', function  () {                
+                console.log("Red button up");
+                jQuery.ajax({
+                    type: "POST",
+                    data: {textfield : el.value, green : 'none', red : 'up', white : 'none'},
+                    success: function(data) {
+                        jQuery('#red').html("Red");
                     },
                     });
                 });
             
+            var whiteBtn = document.getElementById('white');
+            whiteBtn.addEventListener('mousedown', function  () {                
+                console.log("White button down");
+                jQuery.ajax({
+                    type: "POST",
+                    data: {textfield : el.value, green : 'none', red : 'none', white : 'down'},
+                    success: function(data) {
+                        jQuery('#white').html('');
+                    },
+                    });
+                });
+                            
+            whiteBtn.addEventListener('mouseup', function  () {                
+                console.log("White button up");
+                jQuery.ajax({
+                    type: "POST",
+                    data: {textfield : el.value, green : 'none', red : 'none', white : 'up'},
+                    success: function(data) {
+                        jQuery('#white').html("White");
+                    },
+                    });
+                });
                   
         </script>                      
     </body>
