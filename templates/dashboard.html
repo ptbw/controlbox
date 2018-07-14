@@ -15,7 +15,7 @@ $def with (form, text)
     </head>
      
     <body>
-        <div style="margin:10px; padding:20px;" class="metal">
+        <div style="margin:10px; padding:20px; width:500px" class="metal">
         <br>
           
         <span>Speed: </span><span id="foo">$text</span> 
@@ -29,6 +29,8 @@ $def with (form, text)
                 <td><button id="green" style="height: 26px;width:100px" type="button">Green</button></td>
                 <td><button id="red" style="height: 26px;width:100px" type="button">Red</button></td>
                 <td><button id="white" style="height: 26px;width:100px" type="button">White</button></td>
+                <td></td>
+                <td><button id="stop" style="height: 26px;width:100px" type="button">Stop Server</button></td>
                 </tr>
         </table>
         <br><br>  
@@ -114,6 +116,15 @@ $def with (form, text)
                     success: function(data) {
                         jQuery('#white').html("White");
                     },
+                    });
+                });
+                
+            var stopBtn = document.getElementById('stop');
+                stopBtn.addEventListener('mousedown', function  () {                
+                console.log("Stop button down");
+                jQuery.ajax({
+                    type: "POST",
+                    data: {textfield : "STOP", green : 'none', red : 'none', white : 'none'},                    
                     });
                 });
                   
