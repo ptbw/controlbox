@@ -2,18 +2,21 @@
 # -*- coding: utf-8 -*-
 
 import sys
+import os
 import web
 import time
 import threading
 
 onPi = False
 running = True
+
 try:
 	import automationhat
 	print("On a Pi")
 	onPi = True
 except RuntimeError:
 	print("Not on a Pi")
+	onPi = False
 	 
 def make_text(string):
     return string
@@ -34,11 +37,13 @@ def tick():
 			time.sleep( interval )
 	
 	print("Exiting")
+	os._exit(0)	
+	
 						
 	
 speed = -1.0
-threading.Timer(0.36, tick).start()#!/usr/bin/env python
- 
+threading.Timer(1, tick).start()
+
 urls = ('/', 'dashboard')
 render = web.template.render('templates/')
  
@@ -92,8 +97,9 @@ class dashboard:
 		if s == 'STOP':
 			running = False
 			# Wait for tick thread to stop
-			time.sleep(10)
-			sys.exit(0)
+			time.sleep(10)		
+			# exit application????
+			os._exit(0)
 			
 		if s.isdigit():
 			speed = int(s) * 1000
