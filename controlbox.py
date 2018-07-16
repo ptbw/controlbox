@@ -35,6 +35,8 @@ def tick():
 				time.sleep(0.01)
 				automationhat.output.one.off()
 			time.sleep( interval )
+		else :
+			time.sleep( 1 )
 	
 	print("Exiting")
 	os._exit(0)	
