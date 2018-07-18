@@ -28,7 +28,7 @@ def tick():
 	global running
 	while running:
 		if speed > 0:
-			interval = 3600.0 / speed
+			interval = (3600.0 / speed) -0.01
 			print("Interval " + str(interval) )	
 			if onPi and automationhat.is_automation_hat():
 				automationhat.output.one.on()
@@ -73,6 +73,7 @@ class dashboard:
 			print("Relay One On");			
 			automationhat.relay.one.on();
 		if onPi and automationhat.is_automation_hat() and greenBtn == 'up':
+			time.sleep(0.5)
 			print("Relay One Off");			
 			automationhat.relay.one.off();
 			
@@ -81,19 +82,21 @@ class dashboard:
 		print( "Red Button: " + redBtn )
 		if onPi and automationhat.is_automation_hat() and redBtn == 'down':
 			print("Relay Two On");			
-			automationhat.relay.one.on();
+			automationhat.relay.two.on();
 		if onPi and automationhat.is_automation_hat() and redBtn == 'up':
+			time.sleep(0.5)
 			print("Relay Two Off");			
-			automationhat.relay.one.off();
+			automationhat.relay.two.off();
 		
 		whiteBtn = form.value['white']
 		print( "White Button: " + whiteBtn )
 		if onPi and automationhat.is_automation_hat() and whiteBtn == 'down':
 			print("Relay Three On");			
-			automationhat.relay.one.on();
+			automationhat.relay.three.on();
 		if onPi and automationhat.is_automation_hat() and whiteBtn == 'up':
+			time.sleep(0.5)
 			print("Relay Three Off");			
-			automationhat.relay.one.off();
+			automationhat.relay.three.off();
 				
 		s = form.value['textfield']
 		if s == 'STOP':

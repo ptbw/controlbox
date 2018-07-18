@@ -1,0 +1,2 @@
+cd /home/pi/controlbox
+python controlbox.py

@@ -5,7 +5,7 @@ $def with (form, text)
 <html>
  
     <head>
-        <title>Hello</title>
+        <title>Technique Data Collection Control Box</title>
         <link rel="stylesheet" type="text/css" href="/static/dashboard.css" />
         <link rel="stylesheet" href="/static/presets/p1.css">
         
@@ -21,16 +21,16 @@ $def with (form, text)
         <span>Speed: </span><span id="foo">$text</span> 
         <br><br>        
         
-        <input id="preset1" class="preset1" type="range" min="0" max="10" data-width="100" data-height="100" data-angleOffset="220" data-angleRange="280">
+        <input id="preset1" class="preset1" type="range" min="0" max="100" step="10" data-width="100" data-height="100" data-angleOffset="220" data-angleRange="280">
         <br><br>  
         
         <table>
             <tr>
-                <td><button id="green" style="height: 26px;width:100px" type="button">Green</button></td>
-                <td><button id="red" style="height: 26px;width:100px" type="button">Red</button></td>
-                <td><button id="white" style="height: 26px;width:100px" type="button">White</button></td>
+                <td><button id="green" style="height: 26px;width:100px; background-color:green; font-weight:bold" type="button">Good Copy</button></td>
+                <td><button id="red" style="height: 26px;width:100px; background-color:red; font-weight:bold" type="button">Bad Copy</button></td>
+                <td><button id="white" style="height: 26px;width:100px; background-color:white; font-weight:bold" type="button">Splice</button></td>
                 <td></td>
-                <td><button id="stop" style="height: 26px;width:100px" type="button">Stop Server</button></td>
+                <td><button id="stop" style="height: 26px;width:100px; background-color:grey; font-weight:bold" type="button">Stop Server</button></td>
                 </tr>
         </table>
         <br><br>  
@@ -68,7 +68,7 @@ $def with (form, text)
                     type: "POST",
                     data: {textfield : el.value, green : 'up', red : 'none', white : 'none'},
                     success: function(data) {
-                        jQuery('#green').html("Green");
+                        jQuery('#green').html("Good Copy");
                     },
                     });
                 });
@@ -91,7 +91,7 @@ $def with (form, text)
                     type: "POST",
                     data: {textfield : el.value, green : 'none', red : 'up', white : 'none'},
                     success: function(data) {
-                        jQuery('#red').html("Red");
+                        jQuery('#red').html("Bad Copy");
                     },
                     });
                 });
@@ -114,7 +114,7 @@ $def with (form, text)
                     type: "POST",
                     data: {textfield : el.value, green : 'none', red : 'none', white : 'up'},
                     success: function(data) {
-                        jQuery('#white').html("White");
+                        jQuery('#white').html("Splice");
                     },
                     });
                 });
