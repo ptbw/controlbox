@@ -104,6 +104,7 @@ class dashboard:
 			# Wait for tick thread to stop
 			time.sleep(10)		
 			# exit application????
+			os.system("sudo shutdown -h now")
 			os._exit(0)
 			
 		if s.isdigit():
