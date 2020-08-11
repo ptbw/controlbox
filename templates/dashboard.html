@@ -18,11 +18,27 @@ $def with (form, text)
         <div style="margin:10px; padding:20px; width:500px" class="metal">
         <br>
           
-        <span>Speed: </span><span id="foo">$text</span> 
-        <br><br>        
+        <table>
+			<tr>
+				<td width="200px"><span>Speed 1: </span><span id="foo">$text</span></td>
+				<td width="50px"></td>
+				<td width="200px"><span>Speed 2: </span><span id="bar">$text</span></td>
+			</tr>
+		</table>
+        <br/>        
+        <br/>
         
-        <input id="preset1" class="preset1" type="range" min="0" max="100" step="10" data-width="100" data-height="100" data-angleOffset="220" data-angleRange="280">
-        <br><br>  
+        <table>
+			<tr>
+				<td width="200px"><input id="preset1" class="preset1" type="range" min="0" 
+					max="100" step="10" data-width="100" data-height="100" 
+					data-angleOffset="220" data-angleRange="280"/></td> 
+				<td width="50px"></td>
+				<td width="200px"><input id="preset2" class="preset1" type="range" min="0" 
+					max="100" step="10" data-width="100" data-height="100" 
+					data-angleOffset="220" data-angleRange="280"/></td> 
+			</tr> 
+		</table> <br/><br/>  
         
         <table>
             <tr>
@@ -33,8 +49,12 @@ $def with (form, text)
                 <td><button id="stop" style="height: 26px;width:100px; background-color:grey; font-weight:bold" type="button">Stop Server</button></td>
                 </tr>
         </table>
-        <br><br>  
+        <br><br> 
+        <center>
+			<img id="streamimage" style="height:240px; width:320px;" src="http://controller:8081/?action=stream">
+        </center> 
         </div>
+        
         <script type="text/javascript">
             
             var el = document.getElementById('preset1');
@@ -43,19 +63,34 @@ $def with (form, text)
                 console.log(el.value);
                 jQuery.ajax({
                     type: "POST",
-                    data: {textfield : el.value, green : 'none', red : 'none', white : 'none'},
+                    data: {speed1 : el.value, speed2 : el2.value, green : 'none', red : 'none', white : 'none'},
                     success: function(data) {
-                        jQuery('#foo').html(data);
+                        //jQuery('#foo').html(data.speed1);
+                        jQuery('#foo').html(el.value * 100);
                     },
                     });
                 });
-                
+             
+            var el2 = document.getElementById('preset2');
+            var speed2 = new Knob(el2, new Ui.P1());
+            el2.addEventListener('change', function  () {
+                console.log(el2.value);
+                jQuery.ajax({
+                    type: "POST",
+                    data: {speed1 : el.value, speed2 : el2.value, green : 'none', red : 'none', white : 'none'},
+                    success: function(data) {
+                        //jQuery('#bar').html(data.speed2);
+                        jQuery('#bar').html(el2.value * 100);
+                    },
+                    });
+                });
+                   
             var greenBtn = document.getElementById('green');
             greenBtn.addEventListener('mousedown', function  () {                
                 console.log("Green button down");
                 jQuery.ajax({
                     type: "POST",
-                    data: {textfield : el.value, green : 'down', red : 'none', white : 'none'},
+                    data: {speed1 : el.value, speed2 : el2.value, green : 'down', red : 'none', white : 'none'},
                     success: function(data) {
                         jQuery('#green').html('');
                     },
@@ -63,10 +98,10 @@ $def with (form, text)
                 });
                             
             greenBtn.addEventListener('mouseup', function  () {                
-                console.log("Green button up");
+                console.log("Green buttoimu control mecanum wheelsn up");
                 jQuery.ajax({
                     type: "POST",
-                    data: {textfield : el.value, green : 'up', red : 'none', white : 'none'},
+                    data: {speed1 : el.value, speed2 : el2.value, green : 'up', red : 'none', white : 'none'},
                     success: function(data) {
                         jQuery('#green').html("Good Copy");
                     },
@@ -78,7 +113,7 @@ $def with (form, text)
                 console.log("Red button down");
                 jQuery.ajax({
                     type: "POST",
-                    data: {textfield : el.value, green : 'none', red : 'down', white : 'none'},
+                    data: {speed1 : el.value, speed2 : el2.value, green : 'none', red : 'down', white : 'none'},
                     success: function(data) {
                         jQuery('#red').html('');
                     },
@@ -89,7 +124,7 @@ $def with (form, text)
                 console.log("Red button up");
                 jQuery.ajax({
                     type: "POST",
-                    data: {textfield : el.value, green : 'none', red : 'up', white : 'none'},
+                    data: {speed1 : el.value, speed2 : el2.value, green : 'none', red : 'up', white : 'none'},
                     success: function(data) {
                         jQuery('#red').html("Bad Copy");
                     },
@@ -101,7 +136,7 @@ $def with (form, text)
                 console.log("White button down");
                 jQuery.ajax({
                     type: "POST",
-                    data: {textfield : el.value, green : 'none', red : 'none', white : 'down'},
+                    data: {speed1 : el.value, speed2 : el2.value, green : 'none', red : 'none', white : 'down'},
                     success: function(data) {
                         jQuery('#white').html('');
                     },
@@ -112,7 +147,7 @@ $def with (form, text)
                 console.log("White button up");
                 jQuery.ajax({
                     type: "POST",
-                    data: {textfield : el.value, green : 'none', red : 'none', white : 'up'},
+                    data: {speed1 : el.value, speed2 : el2.value, green : 'none', red : 'none', white : 'up'},
                     success: function(data) {
                         jQuery('#white').html("Splice");
                     },
@@ -124,7 +159,7 @@ $def with (form, text)
                 console.log("Stop button down");
                 jQuery.ajax({
                     type: "POST",
-                    data: {textfield : "STOP", green : 'none', red : 'none', white : 'none'},                    
+                    data: {speed1 : "STOP", speed2 : "STOP", green : 'none', red : 'none', white : 'none'},                    
                     });
                 });
                   

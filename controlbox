@@ -1,2 +1,2 @@
 cd /home/pi/controlbox
-python controlbox.py
+python3 controlbox.py
