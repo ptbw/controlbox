@@ -7,10 +7,12 @@ import web
 import time
 import threading
 import json
-#import smbus
+
+import automationhat
+
 import board
 import busio
-import adafruit_character_lcd.character_lcd_rgb_i2c as character_lcd
+#import adafruit_character_lcd.character_lcd_rgb_i2c as character_lcd
 
 
 DEVICE_BUS = 1
@@ -39,16 +41,14 @@ def tick():
 			interval = (3600.0 / speed1) -0.01
 			#print("Interval 1" + str(interval) )				
 			write_byte_data(DEVICE_ADDR_TOP, 4, 0xFF)
+			automationhat.output.one.on()			
 			time.sleep(0.01)
-			write_byte_data(DEVICE_ADDR_TOP, 4, 0x00)
+			write_byte_data(DEVICE_ADDR_TOP, 4, 0x00)			
+			automationhat.output.one.off()
 			time.sleep( interval )
 		else :
 			time.sleep( 1 )	
-
-	lcd.clear
-	lcd.message = "* Stopping *"
-	time.sleep(10)	
-	lcd.clear
+	
 	time.sleep(2)
 	print("Exiting 1")
 	os._exit(0)			
@@ -64,8 +64,10 @@ def tick2():
 			interval = (3600.0 / speed2) -0.01
 			#print("Interval 2" + str(interval) )				
 			write_byte_data(DEVICE_ADDR_TOP, 3, 0xFF)
+			automationhat.output.two.on();
 			time.sleep(0.01)
 			write_byte_data(DEVICE_ADDR_TOP, 3, 0x00)
+			automationhat.output.two.off();
 			time.sleep( interval )
 		else :
 			time.sleep( 1 )
@@ -84,8 +86,10 @@ def tick3():
 			interval = (3600.0 / speed1) -0.01
 			#print("Interval 2" + str(interval) )				
 			write_byte_data(DEVICE_ADDR_TOP, 2, 0xFF)
+			automationhat.output.one.on();			
 			time.sleep(0.01)
 			write_byte_data(DEVICE_ADDR_TOP, 2, 0x00)
+			automationhat.output.one.off();
 			time.sleep( interval )
 		else :
 			time.sleep( 1 )
@@ -104,8 +108,10 @@ def tick4():
 			interval = (3600.0 / speed2) -0.01
 			#print("Interval 2" + str(interval) )				
 			write_byte_data(DEVICE_ADDR_TOP, 1, 0xFF)
+			automationhat.output.two.on();
 			time.sleep(0.01)
 			write_byte_data(DEVICE_ADDR_TOP, 1, 0x00)
+			automationhat.output.two.off();
 			time.sleep( interval )
 		else :
 			time.sleep( 1 )
@@ -135,7 +141,7 @@ i2c = busio.I2C(board.SCL, board.SDA)
 
 speed1 = -1.0
 threading.Timer(1, tick).start()
-# Uses same spped as tick1
+# Uses same speed as tick1
 threading.Timer(1, tick3).start()
 speed2 = -1.0
 threading.Timer(1, tick2).start()
@@ -143,20 +149,20 @@ threading.Timer(1, tick2).start()
 threading.Timer(1, tick4).start()
 
 # Modify this if you have a different sized Character LCD
-lcd_columns = 16
-lcd_rows = 2
+#lcd_columns = 16
+#lcd_rows = 2
  
 
  
 # Initialise the lcd class
-lcd = character_lcd.Character_LCD_RGB_I2C(i2c, lcd_columns, lcd_rows, 32)
+#lcd = character_lcd.Character_LCD_RGB_I2C(i2c, lcd_columns, lcd_rows, 32)
 
-lcd.color = [0,0,0]
-lcd.display = True 
-lcd.clear()
-lcd.text_direction = lcd.LEFT_TO_RIGHT
-lcd.cursor = False
-lcd.message = "* Running *"
+#lcd.color = [0,0,0]
+#lcd.display = True 
+#lcd.clear()
+#lcd.text_direction = lcd.LEFT_TO_RIGHT
+#lcd.cursor = False
+#lcd.message = "* Running *"
 
 
 urls = ('/', 'dashboard')
@@ -188,10 +194,12 @@ class dashboard:
 		if greenBtn == 'down':
 			print("Relay One On")		
 			write_byte_data(DEVICE_ADDR_BOT, 1, 0xFF)
+			automationhat.relay.one.on();
 		if greenBtn == 'up':
 			time.sleep(0.5)
 			print("Relay One Off")
 			write_byte_data(DEVICE_ADDR_BOT, 1, 0x00)
+			automationhat.relay.one.off();
 			
 
 		redBtn = form.value['red']
@@ -199,20 +207,24 @@ class dashboard:
 		if redBtn == 'down':
 			print("Relay Two On")			
 			write_byte_data(DEVICE_ADDR_BOT, 2, 0xFF)
+			automationhat.relay.two.on();
 		if redBtn == 'up':
 			time.sleep(0.5)
 			print("Relay Two Off")
 			write_byte_data(DEVICE_ADDR_BOT, 2, 0x00)
+			automationhat.relay.two.off();
 
 		whiteBtn = form.value['white']
 		print( "White Button: " + whiteBtn )
 		if whiteBtn == 'down':
 			print("Relay Three On")
+			automationhat.relay.three.on();
 			write_byte_data(DEVICE_ADDR_BOT, 3, 0xFF)
 		if whiteBtn == 'up':
 			time.sleep(0.5)
 			print("Relay Three Off")
 			write_byte_data(DEVICE_ADDR_BOT, 3, 0x00)
+			automationhat.relay.three.off();
 				
 		s = form.value['speed1']
 		if s == 'STOP':
